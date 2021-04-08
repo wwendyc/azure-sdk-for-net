@@ -11,10 +11,11 @@ using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using BaseQueueServiceClientProvider = Microsoft.Azure.WebJobs.StorageProvider.Queues.QueueServiceClientProvider;
 
 namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs
 {
-    internal class QueueServiceClientProvider : StorageProvider.Queues.QueueServiceClientProvider
+    internal class QueueServiceClientProvider : BaseQueueServiceClientProvider
     {
         private readonly QueuesOptions _queuesOptions;
         private readonly ILogger<QueueServiceClientProvider> _logger;

@@ -100,7 +100,7 @@
   -->
   <ItemGroup Condition="'$(IsClientLibrary)' == 'true' and $(MSBuildProjectName.StartsWith('Microsoft.'))">
     <PackageReference Update="CloudNative.CloudEvents" Version="2.0.0-beta.1" />
-    <PackageReference Update="Microsoft.Azure.WebJobs" Version="5.0.0" />
+    <PackageReference Update="Microsoft.Azure.WebJobs" Version="3.1.0" />
     <PackageReference Update="Microsoft.Azure.WebJobs.StorageProvider.Blobs" Version="1.0.0" />
     <PackageReference Update="Microsoft.Azure.WebJobs.StorageProvider.Queues" Version="1.0.0" />
     <PackageReference Update="Microsoft.Spatial" Version="7.5.3" />

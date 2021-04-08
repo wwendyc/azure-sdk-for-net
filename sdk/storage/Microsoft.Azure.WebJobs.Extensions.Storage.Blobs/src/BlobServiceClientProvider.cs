@@ -3,10 +3,11 @@
 
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
+using BaseBlobServiceClientProvider = Microsoft.Azure.WebJobs.StorageProvider.Blobs.BlobServiceClientProvider;
 
 namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs
 {
-    internal class BlobServiceClientProvider : StorageProvider.Blobs.BlobServiceClientProvider
+    internal class BlobServiceClientProvider : BaseBlobServiceClientProvider
     {
         public BlobServiceClientProvider(IConfiguration configuration, AzureComponentFactory componentFactory, AzureEventSourceLogForwarder logForwarder)
             : base(configuration, componentFactory, logForwarder) {}
