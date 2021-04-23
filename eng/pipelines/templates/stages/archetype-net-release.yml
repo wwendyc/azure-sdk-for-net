@@ -57,6 +57,7 @@ stages:
                 deploy:
                   steps:
                     - checkout: self
+                    - template: /eng/common/pipelines/templates/steps/retain-run.yml
                     - template: /eng/common/pipelines/templates/steps/set-test-pipeline-version.yml
                       parameters:
                         PackageName: "Azure.Template"
@@ -215,7 +216,7 @@ stages:
                     steps:
                       - checkout: self
                       - pwsh: |
-                          eng/scripts/Update-PkgVersion.ps1 -ServiceDirectory '${{parameters.ServiceDirectory}}' -PackageName '${{artifact.name}}' -PackageDirName '${{artifact.directoryName}}'
+                          eng/scripts/Update-PkgVersion.ps1 -ServiceDirectory '${{parameters.ServiceDirectory}}' -PackageName '${{artifact.name}}'
                         displayName: Increment package version
                       - template: /eng/common/pipelines/templates/steps/create-pull-request.yml
                         parameters:
@@ -240,7 +241,7 @@ stages:
     dependsOn: Signing
     jobs:
     - job: PublishPackages
-      condition: or(eq(variables['SetDevVersion'], 'true'), and(eq(variables['Build.Reason'],'Schedule'), eq(variables['System.TeamProject'], 'internal')))
+      condition: and(eq(variables['SetDevVersion'], 'true'), eq(variables['System.TeamProject'], 'internal'))
       displayName: Publish package to daily feed
       variables:
         BlobFeedUrl: 'https://azuresdkartifacts.blob.core.windows.net/azure-sdk-for-net/index.json'

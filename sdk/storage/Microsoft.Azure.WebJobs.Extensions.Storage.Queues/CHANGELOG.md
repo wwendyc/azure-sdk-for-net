@@ -2,6 +2,8 @@
 
 ## 5.0.0-beta.4 (Unreleased)
 
+- Fixed bug where custom implementations of `IQueueProcessorFactory` could overwrite each other settings.
+
 ### Major changes and features
 
 The `Microsoft.Azure.WebJobs.Extension.Storage.Queues` relies on storage providers in the WebJobs SDK to create QueueServiceClients.
