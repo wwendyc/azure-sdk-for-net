@@ -17,7 +17,7 @@ using BaseQueueServiceClientProvider = Microsoft.Azure.WebJobs.StorageProvider.Q
 
 namespace Microsoft.Azure.WebJobs.Extensions.Storage.Queues
 {
-    internal class QueueServiceClientProvider : BaseQueueServiceClientProvider;
+    internal class QueueServiceClientProvider : BaseQueueServiceClientProvider
     {
         private readonly QueuesOptions _queuesOptions;
         private readonly ILoggerFactory _loggerFactory;
@@ -30,9 +30,10 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Queues
             AzureEventSourceLogForwarder logForwarder,
             IOptions<QueuesOptions> queueOptions,
             ILoggerFactory loggerFactory,
+            ILogger<QueueServiceClient> logger,
             IQueueProcessorFactory queueProcessorFactory,
             SharedQueueWatcher messageEnqueuedWatcher)
-            : base(configuration, componentFactory, logForwarder)
+            : base(configuration, componentFactory, logForwarder, logger)
         {
             _queuesOptions = queueOptions?.Value;
             _loggerFactory = loggerFactory;

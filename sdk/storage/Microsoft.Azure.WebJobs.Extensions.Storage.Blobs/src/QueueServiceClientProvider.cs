@@ -25,8 +25,9 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs
             AzureComponentFactory componentFactory,
             AzureEventSourceLogForwarder logForwarder,
             IOptions<QueuesOptions> queueOptions,
-            ILogger<QueueServiceClientProvider> logger)
-            : base(configuration, componentFactory, logForwarder)
+            ILogger<QueueServiceClientProvider> logger,
+            ILogger<QueueServiceClient> baseClientLogger)
+            : base(configuration, componentFactory, logForwarder, baseClientLogger)
         {
             _queuesOptions = queueOptions?.Value;
             _logger = logger;
