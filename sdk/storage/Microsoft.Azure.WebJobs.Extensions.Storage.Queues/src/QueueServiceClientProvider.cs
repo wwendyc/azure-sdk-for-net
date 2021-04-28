@@ -5,6 +5,7 @@ using System;
 using Azure.Core;
 using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
+using Microsoft.Azure.WebJobs.Extensions.Storage.Common;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Common.Listeners;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Queues.Listeners;
 using Microsoft.Azure.WebJobs.Host;
@@ -44,6 +45,12 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Queues
         protected override QueueClientOptions CreateClientOptions(IConfiguration configuration)
         {
             var options = base.CreateClientOptions(configuration);
+
+            options.Diagnostics.ApplicationId = options.Diagnostics.ApplicationId ?? "AzureWebJobs";
+            if (SkuUtility.IsDynamicSku)
+            {
+                options.Transport = SkuUtility.CreateTransportForDynamicSku();
+            }
 
             options.MessageEncoding = _queuesOptions.MessageEncoding;
             return options;

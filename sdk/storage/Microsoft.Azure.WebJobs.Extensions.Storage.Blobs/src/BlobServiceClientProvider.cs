@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using Azure.Storage.Blobs;
+using Microsoft.Azure.WebJobs.Extensions.Storage.Common;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,5 +14,18 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs
     {
         public BlobServiceClientProvider(IConfiguration configuration, AzureComponentFactory componentFactory, AzureEventSourceLogForwarder logForwarder, ILogger<BlobServiceClient> logger)
             : base(configuration, componentFactory, logForwarder, logger) {}
+
+        protected override BlobClientOptions CreateClientOptions(IConfiguration configuration)
+        {
+            var options = base.CreateClientOptions(configuration);
+
+            options.Diagnostics.ApplicationId = options.Diagnostics.ApplicationId ?? "AzureWebJobs";
+            if (SkuUtility.IsDynamicSku)
+            {
+                options.Transport = SkuUtility.CreateTransportForDynamicSku();
+            }
+
+            return options;
+        }
     }
 }

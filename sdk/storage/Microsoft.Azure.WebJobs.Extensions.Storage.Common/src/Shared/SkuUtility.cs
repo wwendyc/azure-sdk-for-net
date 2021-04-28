@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using Azure.Core.Pipeline;
 using System;
+using System.Net.Http;
 
 namespace Microsoft.Azure.WebJobs.Extensions.Storage.Common
 {
@@ -29,5 +31,13 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Common
         public static bool IsDynamicSku => s_isDynamicSku.Value;
 
         public static int ProcessorCount => s_processorCount.Value;
+
+        internal static HttpPipelineTransport CreateTransportForDynamicSku()
+        {
+            return new HttpClientTransport(new HttpClient(new HttpClientHandler()
+            {
+                MaxConnectionsPerServer = 50
+            }));
+        }
     }
 }
