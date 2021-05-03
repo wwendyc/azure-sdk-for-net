@@ -192,12 +192,14 @@ namespace IotHub.Tests.ScenarioTests
                 Assert.Contains(ehConsumerGroups, e => e.Name.Equals("$Default", StringComparison.OrdinalIgnoreCase));
 
                 // Add EH consumer group
+                const string consumerGroupName = "testConsumerGroup";
                 var ehConsumerGroup = await iotHubClient.IotHubResource
                     .CreateEventHubConsumerGroupAsync(
                         IotHubTestUtilities.DefaultResourceGroupName,
                         IotHubTestUtilities.DefaultIotHubName,
                         IotHubTestUtilities.EventsEndpointName,
-                        "testConsumerGroup")
+                        consumerGroupName,
+                        new EventHubConsumerGroupName(consumerGroupName))
                     .ConfigureAwait(false);
 
                 ehConsumerGroup.Name.Should().Be("testConsumerGroup");

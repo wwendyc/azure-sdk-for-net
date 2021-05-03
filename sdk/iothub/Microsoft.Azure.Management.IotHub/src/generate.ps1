@@ -4,7 +4,7 @@
 
 try
 {
-	Start-AutoRestCodeGeneration -ResourceProvider "iothub/resource-manager" -AutoRestVersion "v2" -ConfigFileTag "package-2020-03"
+	Start-AutoRestCodeGeneration -ResourceProvider "iothub/resource-manager" -AutoRestVersion "v2" -SpecsRepoFork "nimengan" -SpecsRepoBranch "Microsoft.Devices-2021-03-31"
 }
 catch
 {

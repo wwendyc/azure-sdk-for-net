@@ -241,7 +241,14 @@ namespace IotHub.Tests.ScenarioTests
                 iotHubName,
                 certificateName,
                 null,
-                IotHubTestUtilities.DefaultIotHubCertificateContent);
+                new CertificateProperties(
+                    IotHubTestUtilities.DefaultIotHubCertificateSubject,
+                    null,
+                    IotHubTestUtilities.DefaultIotHubCertificateThumbprint,
+                    null,
+                    null,
+                    null,
+                    IotHubTestUtilities.DefaultIotHubCertificateContent));
         }
 
         protected Task<CertificateListDescription> GetCertificatesAsync(ResourceGroup resourceGroup, string iotHubName)
